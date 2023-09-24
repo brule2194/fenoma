@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: web_fastApi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn main:app --host 0.0.0.0
+    volumes:
+     - ./:/usr/src/app
+    ports:
+      - 8008:8000
