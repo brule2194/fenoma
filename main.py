@@ -1,14 +1,14 @@
-from fastapi import FastAPI
-from pydantic import BaseModel, Field
+from fastapi import FastAPI, Path
+from pydantic import BaseModel
 
 app = FastAPI()
 
 
 class Item(BaseModel):
     item: str
-    quantity: int
+    quantity: int = Path(title="The quantity must be greater than zero", ge=1)
     status: str
-    price: float
+    price: float = Path(title="The price must be greater than zero", ge=1)
 
 
 
