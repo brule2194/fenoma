@@ -1,6 +1,5 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
-from typing import Union
+from pydantic import BaseModel, Field
 
 app = FastAPI()
 
@@ -8,9 +7,8 @@ app = FastAPI()
 class Item(BaseModel):
     item: str
     quantity: int
+    status: str
     price: float
-    status: bool
-
 
 
 
@@ -18,6 +16,16 @@ class Item(BaseModel):
 async def root():
     return {"message": "Hello World"}
 
-@app.post("/solution")
-def process_orders(orders, criterion):
-    return {"item_name"}
+@app.post('/solution/{criterion}')
+def process_orders(orders: list[Item], criterion: str):
+    aux_list: list = []
+    if criterion == "all":
+        aux_list = orders
+    total = 0.00
+    for order in orders:
+        if criterion == "all":
+            total += order.quantity * order.price
+        elif order.status == criterion:
+            total += order.quantity * order.price
+
+    return {"suma": total}
