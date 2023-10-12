@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: web_container_fastapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    command: uvicorn main:app --host 0.0.0.0
+
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+
+    tty: true
+
+    restart: always
